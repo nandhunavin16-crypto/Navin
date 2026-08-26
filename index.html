@@ -175,6 +175,63 @@ section.is-visible {
   transform: translateY(0);
 }
 
+/* ---------- Traditional opening effect ---------- */
+
+#gate.opening {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
+}
+
+#open-btn.opening {
+  animation: blessingGlow 0.8s ease forwards;
+}
+
+@keyframes blessingGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(203, 169, 79, 0);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 25px rgba(203, 169, 79, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(203, 169, 79, 0);
+  }
+}
+
+/* Floating traditional petals */
+.petal {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  font-size: 14px;
+  animation: petalFloat 1.8s ease-out forwards;
+}
+
+@keyframes petalFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5) rotate(0deg);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(var(--x) * 1px),
+        calc(var(--y) * 1px)
+      )
+      scale(1.2)
+      rotate(180deg);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   section {
     opacity: 1;
@@ -330,7 +387,7 @@ section.is-visible {
     <h1>Navin <span class="amp">&amp;</span> Sangavi</h1>
     <p class="gate-date">13th September 2026 · Chennai</p>
   </div>
-  <button id="open-btn" onclick="document.getElementById('gate').classList.add('hidden'); document.body.style.overflow='auto'; const m=document.getElementById('bg-music'); m.volume=0.6; m.play().catch(()=>{});">Open With Blessings ✦</button>
+  <button id="open-btn">Open With Blessings ✦</button>
 </div>
 
 <div style="overflow:hidden;">
@@ -493,6 +550,94 @@ sections.forEach(section => {
   sectionObserver.observe(section);
 });
 </script>
+  <script>
+/* ---------- Traditional invitation opening effect ---------- */
 
+const openButton = document.getElementById('open-btn');
+const gate = document.getElementById('gate');
+const music = document.getElementById('bg-music');
+
+openButton.addEventListener('click', function () {
+
+  // Prevent multiple clicks
+  if (openButton.classList.contains('opening')) return;
+
+  openButton.classList.add('opening');
+
+  // Create floating traditional petals
+  const petals = ['✦', '✧', '•', '❋', '✦', '•', '✧', '❋'];
+
+  petals.forEach((symbol, index) => {
+
+    const petal = document.createElement('span');
+
+    petal.className = 'petal';
+    petal.textContent = symbol;
+
+    // Start around the button
+    const buttonRect = openButton.getBoundingClientRect();
+
+    petal.style.left =
+      (buttonRect.left + buttonRect.width / 2) + 'px';
+
+    petal.style.top =
+      (buttonRect.top + buttonRect.height / 2) + 'px';
+
+    // Spread particles in different directions
+    const angle =
+      (Math.PI * 2 / petals.length) * index;
+
+    const distance = 60 + Math.random() * 80;
+
+    petal.style.setProperty(
+      '--x',
+      Math.cos(angle) * distance
+    );
+
+    petal.style.setProperty(
+      '--y',
+      Math.sin(angle) * distance
+    );
+
+    document.body.appendChild(petal);
+
+    // Remove after animation
+    setTimeout(() => {
+      petal.remove();
+    }, 1900);
+  });
+
+  // Start music softly
+  music.volume = 0;
+
+  music.play().then(() => {
+
+    let volume = 0;
+
+    const fadeMusic = setInterval(() => {
+
+      volume += 0.03;
+
+      music.volume = Math.min(volume, 0.6);
+
+      if (volume >= 0.6) {
+        clearInterval(fadeMusic);
+      }
+
+    }, 50);
+
+  }).catch(() => {});
+
+  // Begin opening the invitation
+  setTimeout(() => {
+
+    gate.classList.add('opening');
+
+    document.body.style.overflow = 'auto';
+
+  }, 500);
+
+});
+    </script>
 </body>
 </html>
