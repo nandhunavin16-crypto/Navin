@@ -161,7 +161,27 @@
     color:var(--brass);
   }
 
-  section{ padding: 4vh 6vw; max-width:1080px; margin:0 auto; }
+  section {
+  padding: 4vh 6vw;
+  max-width:1080px;
+  margin:0 auto;
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
   .section-head{ text-align:center; margin-bottom:2.8rem; }
   .section-head h2{ font-size:clamp(1.8rem, 4.8vw, 2.6rem); margin-top:0.4rem; }
 
@@ -455,6 +475,23 @@
       m.play().catch(()=>{});
     }
   });
+  /* ---------- Smooth section reveal on scroll ---------- */
+const sections = document.querySelectorAll('section');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      sectionObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.15
+});
+
+sections.forEach(section => {
+  sectionObserver.observe(section);
+});
 </script>
 
 </body>
