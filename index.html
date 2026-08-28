@@ -396,6 +396,34 @@ section.is-visible {
   0%, 100%{ transform:translateX(-50%) translateY(0); }
   50%{ transform:translateX(-50%) translateY(6px); }
 } 
+  /* Ken Burns slow zoom on couple photos */
+.photo-slot img{
+  animation: kenburns 10s ease-in-out infinite alternate;
+}
+@keyframes kenburns{
+  0%{ transform:scale(1); }
+  100%{ transform:scale(1.12); }
+}
+
+/* Sections fade in gently on scroll */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Countdown numbers pulse softly */
+.cd-num{
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%, 100%{ transform:scale(1); }
+  50%{ transform:scale(1.08); }
+}
 </style>
 </head>
 <body>
@@ -435,7 +463,7 @@ section.is-visible {
 
 <div class="leaf-rule"></div>
 
-<section id="couple">
+<section id="couple" class="reveal">
   <div class="section-head">
     <span class="eyebrow">Groom &amp; Bride</span>
     <h2>The Couple</h2>
@@ -459,7 +487,7 @@ section.is-visible {
 
 <div class="leaf-rule"></div>
 
-<section id="events">
+<section id="events" class="reveal">
   <div class="section-head">
     <span class="eyebrow">Schedule</span>
     <h2>The Sacred Ceremonies</h2>
@@ -480,7 +508,7 @@ section.is-visible {
 
 <div class="leaf-rule"></div>
 
-<section id="venue">
+<section id="venue" class="reveal">
   <div class="section-head">
     <span class="eyebrow">Venue Details</span>
     <h2>The Venues</h2>
@@ -499,7 +527,7 @@ section.is-visible {
   </div>
 </section>
 
-<section id="gallery">
+<section id="gallery" class="reveal">
   <div class="section-head">
     <span class="eyebrow">Cherished Moments</span>
     <h2>Gallery</h2>
@@ -516,7 +544,7 @@ section.is-visible {
 
 <div class="leaf-rule"></div>
 
-<section id="letter">
+<section id="letter" class= "reveal">
   <div class="letter">
     <p>Dear Family and Friends, with hearts full of gratitude and the blessings of our elders, we joyfully invite you to witness the union of our lives. Your presence and blessings would make this sacred occasion truly complete.</p>
     <p class="sign">With love and reverence, Navin &amp; Sangavi</p>
@@ -664,6 +692,15 @@ openButton.addEventListener('click', function () {
   }, 500);
 
 });
+    const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+    }
+  });
+}, { threshold: 0.15 });
+revealEls.forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
