@@ -379,6 +379,20 @@ section.is-visible {
   @media (prefers-reduced-motion: reduce){
     .scroll-strip{ animation:none; transform:scaleY(1); }
   }
+  .scroll-hint{
+  position:absolute;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  opacity:0.45;
+  animation:bob 1.8s ease-in-out infinite;
+}
+.scroll-hint svg{ width:20px; height:20px; display:block; }
+@keyframes bob{
+  0%, 100%{ transform:translateX(-50%) translateY(0); }
+  50%{ transform:translateX(-50%) translateY(8px); }
+}
+  
 </style>
 </head>
 <body>
@@ -410,6 +424,12 @@ section.is-visible {
       <div class="cd-unit"><div class="cd-num" id="cd-mins">--</div><div class="cd-label">Mins</div></div>
       <div class="cd-unit"><div class="cd-num" id="cd-secs">--</div><div class="cd-label">Secs</div></div>
     </div>
+    <span class="scroll-hint">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 8 L12 16 L20 8" stroke="#A9812E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</span>
+
   </div>
 </section>
 
