@@ -242,12 +242,22 @@ section.is-visible {
   align-items:center;
 }
 @media (max-width:700px){ .couple-grid{ grid-template-columns:1fr; } .couple-grid .amp-mid{ margin:0 auto; } }
-.plaque{
+..plaque{
   position:relative;
   border:1.5px solid var(--brass);
   padding:2rem 1.4rem;
   text-align:center;
-  background:rgba(217,199,154,0.78);
+
+  background-image:
+    linear-gradient(
+      rgba(237,224,189,0.72),
+      rgba(237,224,189,0.78)
+    ),
+    url('IMG_8460.PNG');
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 .plaque::before, .plaque::after,
 .plaque .stud-tl, .plaque .stud-tr, .plaque .stud-bl, .plaque .stud-br{
