@@ -418,9 +418,36 @@ section.is-visible {
 @media (prefers-reduced-motion: reduce){
   .scroll-hint{ animation:none; }
 }
+  .gold-dust-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+  overflow:hidden;
+}
+.spark{
+  position:absolute;
+  bottom:-10px;
+  border-radius:50%;
+  background:radial-gradient(circle, #E3C878 0%, rgba(227,200,120,0) 70%);
+  opacity:0;
+  animation-name:float-up;
+  animation-timing-function:ease-in;
+  animation-iteration-count:infinite;
+}
+@keyframes float-up{
+  0%{ opacity:0; transform:translateY(0) translateX(0); }
+  10%{ opacity:0.8; }
+  90%{ opacity:0.5; }
+  100%{ opacity:0; transform:translateY(-100vh) translateX(var(--drift, 20px)); }
+}
+@media (prefers-reduced-motion: reduce){
+  .gold-dust-container{ display:none; }
+}
 </style>
 </head>
 <body>
+  <div class="gold-dust-container" id="gold-dust"></div>
 
 <audio id="bg-music" loop>
   <source src="Wedding-bgm.mp3" type="audio/mpeg">
@@ -490,7 +517,7 @@ section.is-visible {
     <div class="amp-mid">&amp;</div>
     <div class="plaque">
       <span class="stud-tl"></span><span class="stud-tr"></span><span class="stud-bl"></span><span class="stud-br"></span>
-      <div class="photo-slot has-photo"><img src="sangavi.heic" alt="Sangavi"></div>
+      <div class="photo-slot has-photo"><img src="Sangavi.jpeg" alt="Sangavi"></div>
       <h3>Sangavi</h3>
       <p class="parents">Daughter of Jayasekaran &amp; Vasantha Logini</p>
     </div>
@@ -545,10 +572,18 @@ section.is-visible {
     <h2>Gallery</h2>
   </div>
   <div class="gallery-grid">
-    <div class="gallery-slot">Couple 1.jpg</div>
-    <div class="gallery-slot">Couple 2.jpg</div>
-    <div class="gallery-slot">Couple 3.jpg</div>
-    <div class="gallery-slot">Couple 4.jpg</div>
+    <div class="gallery-slot">
+      <img src="Couple 1.jpg" alt = "Navin & Sangavi">
+    </div>
+    <div class="gallery-slot">
+      <img src="Couple 2.jpg" alt = "Navin & Sangavi">
+    </div>
+    <div class="gallery-slot">
+      <img src="Couple 3.jpg" alt = "Navin & Sangavi">
+    </div>
+    <div class="gallery-slot">
+      <img src="Couple 4.jpg" alt = "Navin & Sangavi">
+  </div>
   </div>
 </section>
 
@@ -745,5 +780,25 @@ openButton.addEventListener('click', function () {
 
 });
     </script>
+  <script>
+  const dustContainer = document.getElementById('gold-dust');
+  const sparkCount = 25;
+  for(let i = 0; i < sparkCount; i++){
+    const s = document.createElement('span');
+    s.className = 'spark';
+    const size = (Math.random() * 3 + 2).toFixed(1);
+    const left = (Math.random() * 100).toFixed(1);
+    const duration = (Math.random() * 10 + 8).toFixed(1);
+    const delay = (Math.random() * -duration).toFixed(1);
+    const drift = (Math.random() * 80 - 40).toFixed(0);
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = left + '%';
+    s.style.animationDuration = duration + 's';
+    s.style.animationDelay = delay + 's';
+    s.style.setProperty('--drift', drift + 'px');
+    dustContainer.appendChild(s);
+  }
+</script>
 </body>
 </html> 
