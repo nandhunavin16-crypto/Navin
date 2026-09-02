@@ -428,21 +428,28 @@ section.is-visible {
 .spark{
   position:absolute;
   bottom:-10px;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--brass-light);
+  width:8px;
+  height:11px;
+  border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  background:radial-gradient(circle at 50% 35%, #FFDE9E 0%, #F0A93C 40%, #C9711A 75%, rgba(201,113,26,0) 100%);
   opacity:0;
-  animation-name:float-up;
-  animation-timing-function:ease-in;
-  animation-iteration-count:infinite;
-  box-shadow:0 0 8px 3px rgba(169,129,46,0.7);
+  animation-name:float-up, flicker;
+  animation-timing-function:ease-in, ease-in-out;
+  animation-iteration-count:infinite, infinite;
+  box-shadow:0 0 10px 3px rgba(240,169,60,0.65);
 }
 @keyframes float-up{
-  0%{ opacity:0; transform:translateY(0) translateX(0); }
+  0%{ opacity:0; bottom:-10px; transform:rotate(-45deg) translateX(0); }
   10%{ opacity:1; }
-  90%{ opacity:0.8; }
-  100%{ opacity:0; transform:translateY(-100vh) translateX(var(--drift, 20px)); }
+  90%{ opacity:0.85; }
+  100%{ opacity:0; bottom:100vh; transform:rotate(-45deg) translateX(var(--drift, 20px)); }
+}
+@keyframes flicker{
+  0%, 100%{ transform:rotate(-45deg) scale(1); }
+  25%{ transform:rotate(-42deg) scale(0.92); }
+  50%{ transform:rotate(-47deg) scale(1.06); }
+  75%{ transform:rotate(-43deg) scale(0.96); }
 }
 @media (prefers-reduced-motion: reduce){
   .gold-dust-container{ display:none; }
