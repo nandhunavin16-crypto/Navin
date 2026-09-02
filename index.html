@@ -427,25 +427,25 @@ section.is-visible {
 }
 .spark{
   position:absolute;
-  bottom:-10px;
+  top:-10px;
   width:10px;
-  height:10px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(227,200,120,0.9) 0%, rgba(227,200,120,0.35) 45%, rgba(227,200,120,0) 75%);
+  height:8px;
+  border-radius:60% 0 60% 0;
+  background:linear-gradient(135deg, #EDD9A3 0%, #C9A227 100%);
   opacity:0;
-  animation-name:float-up, glow-pulse;
-  animation-timing-function:ease-in-out, ease-in-out;
+  animation-name:petal-fall, petal-spin;
+  animation-timing-function:ease-in, linear;
   animation-iteration-count:infinite, infinite;
 }
-@keyframes float-up{
-  0%{ opacity:0; bottom:-10px; transform:translateX(0); }
+@keyframes petal-fall{
+  0%{ opacity:0; top:-10px; }
   10%{ opacity:0.9; }
-  90%{ opacity:0.6; }
-  100%{ opacity:0; bottom:100vh; transform:translateX(var(--drift, 20px)); }
+  90%{ opacity:0.7; }
+  100%{ opacity:0; top:100vh; }
 }
-@keyframes glow-pulse{
-  0%, 100%{ transform:scale(1); }
-  50%{ transform:scale(1.4); }
+@keyframes petal-spin{
+  0%{ transform:rotate(0deg) translateX(0); }
+  100%{ transform:rotate(360deg) translateX(var(--drift, 20px)); }
 }
 @media (prefers-reduced-motion: reduce){
   .gold-dust-container{ display:none; }
