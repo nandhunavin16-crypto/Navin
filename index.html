@@ -428,18 +428,20 @@ section.is-visible {
 .spark{
   position:absolute;
   bottom:-10px;
+  width:6px;
+  height:6px;
   border-radius:50%;
-  background:radial-gradient(circle, #FFD966 0%, rgba(255,217,102,0) 70%);
+  background:#C9A227;
   opacity:0;
   animation-name:float-up;
   animation-timing-function:ease-in;
   animation-iteration-count:infinite;
-  box-shadow:0 0 6px 1px rgba(255,217,102,0.5);
+  box-shadow:0 0 8px 3px rgba(201,162,39,0.9), 0 0 2px 1px rgba(122,31,43,0.4);
 }
 @keyframes float-up{
   0%{ opacity:0; transform:translateY(0) translateX(0); }
-  10%{ opacity:0.8; }
-  90%{ opacity:0.5; }
+  10%{ opacity:1; }
+  90%{ opacity:0.8; }
   100%{ opacity:0; transform:translateY(-100vh) translateX(var(--drift, 20px)); }
 }
 @media (prefers-reduced-motion: reduce){
