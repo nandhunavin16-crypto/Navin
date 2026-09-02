@@ -220,6 +220,20 @@ section.is-visible {
 .section-head{ text-align:center; margin-bottom:2.8rem; }
 .section-head h2{ font-size:clamp(1.8rem, 4.8vw, 2.6rem); margin-top:0.4rem; }
 
+ /* ---------- Couple Section Background ---------- */
+#couple{
+  position:relative;
+  background-image:
+    linear-gradient(
+      rgba(237,224,189,0.84),
+      rgba(237,224,189,0.88)
+    ),
+    url('IMG_8460.PNG');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  border:1px solid rgba(169,129,46,0.35);
+} 
 /* ---------- Couple plaques ---------- */
 .couple-grid{
   display:grid;
@@ -233,7 +247,7 @@ section.is-visible {
   border:1.5px solid var(--brass);
   padding:2rem 1.4rem;
   text-align:center;
-  background:var(--palm-dark);
+  background:rgba(217,199,154,0.78);
 }
 .plaque::before, .plaque::after,
 .plaque .stud-tl, .plaque .stud-tr, .plaque .stud-bl, .plaque .stud-br{
