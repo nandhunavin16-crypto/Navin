@@ -321,7 +321,7 @@ section.is-visible {
     gap:0.9rem;
   }
   @media (max-width:640px){ .gallery-grid{ grid-template-columns:repeat(2, 1fr); } }
-  .gallery-slot{
+  .gallery-slot img{
     aspect-ratio:1/1;
     border:1.5px dashed var(--brass);
     display:flex; align-items:center; justify-content:center;
@@ -422,18 +422,19 @@ section.is-visible {
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:2;
+  z-index:45;
   overflow:hidden;
 }
 .spark{
   position:absolute;
   bottom:-10px;
   border-radius:50%;
-  background:radial-gradient(circle, #E3C878 0%, rgba(227,200,120,0) 70%);
+  background:radial-gradient(circle, #FFD966 0%, rgba(255,217,102,0) 70%);
   opacity:0;
   animation-name:float-up;
   animation-timing-function:ease-in;
   animation-iteration-count:infinite;
+  box-shadow:0 0 6px 1px rgba(255,217,102,0.5);
 }
 @keyframes float-up{
   0%{ opacity:0; transform:translateY(0) translateX(0); }
@@ -443,6 +444,27 @@ section.is-visible {
 }
 @media (prefers-reduced-motion: reduce){
   .gold-dust-container{ display:none; }
+}
+  .gallery-carousel{
+  position:relative;
+  width:100%;
+  max-width:480px;
+  aspect-ratio:1/1;
+  margin:0 auto;
+  overflow:hidden;
+  border:1.5px solid var(--brass);
+}
+.carousel-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.8s ease;
+}
+.carousel-img.active{
+  opacity:1;
 }
 </style>
 </head>
@@ -571,19 +593,11 @@ section.is-visible {
     <span class="eyebrow">Cherished Moments</span>
     <h2>Gallery</h2>
   </div>
-  <div class="gallery-grid">
-    <div class="gallery-slot">
-      <img src="Couple 1.jpg" alt = "Navin & Sangavi">
-    </div>
-    <div class="gallery-slot">
-      <img src="Couple 2.jpg" alt = "Navin & Sangavi">
-    </div>
-    <div class="gallery-slot">
-      <img src="Couple 3.jpg" alt = "Navin & Sangavi">
-    </div>
-    <div class="gallery-slot">
-      <img src="Couple 4.jpg" alt = "Navin & Sangavi">
-  </div>
+  <div class="gallery-carousel">
+  <img src="Couple 1.jpg" class="carousel-img active" alt="">
+  <img src="Couple 2.jpg" class="carousel-img" alt="">
+  <img src="Couple 3.jpg" class="carousel-img" alt="">
+  <img src="Couple 4.jpg" class="carousel-img" alt="">
   </div>
 </section>
 
@@ -786,7 +800,7 @@ openButton.addEventListener('click', function () {
   for(let i = 0; i < sparkCount; i++){
     const s = document.createElement('span');
     s.className = 'spark';
-    const size = (Math.random() * 3 + 2).toFixed(1);
+    const size = (Math.random() * 5 + 4).toFixed(1);
     const left = (Math.random() * 100).toFixed(1);
     const duration = (Math.random() * 10 + 8).toFixed(1);
     const delay = (Math.random() * -duration).toFixed(1);
@@ -799,6 +813,15 @@ openButton.addEventListener('click', function () {
     s.style.setProperty('--drift', drift + 'px');
     dustContainer.appendChild(s);
   }
+    const carouselImgs = document.querySelectorAll('.carousel-img');
+let currentSlide = 0;
+if(carouselImgs.length > 1){
+  setInterval(() => {
+    carouselImgs[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % carouselImgs.length;
+    carouselImgs[currentSlide].classList.add('active');
+  }, 4000);
+}
 </script>
 </body>
 </html> 
