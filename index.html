@@ -428,28 +428,24 @@ section.is-visible {
 .spark{
   position:absolute;
   bottom:-10px;
-  width:8px;
-  height:11px;
-  border-radius:50% 50% 50% 0;
-  transform:rotate(-45deg);
-  background:radial-gradient(circle at 50% 35%, #FFDE9E 0%, #F0A93C 40%, #C9711A 75%, rgba(201,113,26,0) 100%);
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(227,200,120,0.9) 0%, rgba(227,200,120,0.35) 45%, rgba(227,200,120,0) 75%);
   opacity:0;
-  animation-name:float-up, flicker;
-  animation-timing-function:ease-in, ease-in-out;
+  animation-name:float-up, glow-pulse;
+  animation-timing-function:ease-in-out, ease-in-out;
   animation-iteration-count:infinite, infinite;
-  box-shadow:0 0 10px 3px rgba(240,169,60,0.65);
 }
 @keyframes float-up{
-  0%{ opacity:0; bottom:-10px; transform:rotate(-45deg) translateX(0); }
-  10%{ opacity:1; }
-  90%{ opacity:0.85; }
-  100%{ opacity:0; bottom:100vh; transform:rotate(-45deg) translateX(var(--drift, 20px)); }
+  0%{ opacity:0; bottom:-10px; transform:translateX(0); }
+  10%{ opacity:0.9; }
+  90%{ opacity:0.6; }
+  100%{ opacity:0; bottom:100vh; transform:translateX(var(--drift, 20px)); }
 }
-@keyframes flicker{
-  0%, 100%{ transform:rotate(-45deg) scale(1); }
-  25%{ transform:rotate(-42deg) scale(0.92); }
-  50%{ transform:rotate(-47deg) scale(1.06); }
-  75%{ transform:rotate(-43deg) scale(0.96); }
+@keyframes glow-pulse{
+  0%, 100%{ transform:scale(1); }
+  50%{ transform:scale(1.4); }
 }
 @media (prefers-reduced-motion: reduce){
   .gold-dust-container{ display:none; }
@@ -809,6 +805,10 @@ openButton.addEventListener('click', function () {
   for(let i = 0; i < sparkCount; i++){
     const s = document.createElement('span');
     s.className = 'spark';
+    const inner = document.createElement('span');
+inner.style.cssText = 'display:block;width:100%;height:100%;border-radius:50%;background:inherit;animation:glow-pulse 2.5s ease-in-out infinite;';
+s.appendChild(inner);
+s.style.background = 'transparent';
     const size = (Math.random() * 5 + 4).toFixed(1);
     const left = (Math.random() * 100).toFixed(1);
     const duration = (Math.random() * 10 + 8).toFixed(1);
