@@ -242,11 +242,12 @@ section.is-visible {
   align-items:center;
 }
 @media (max-width:700px){ .couple-grid{ grid-template-columns:1fr; } .couple-grid .amp-mid{ margin:0 auto; } }
-..plaque{
+.plaque{
   position:relative;
-  border:1.5px solid var(--brass);
+  border:none;
   padding:2rem 1.4rem;
   text-align:center;
+  backround:transparent;
 
   background-image:
     linear-gradient(
@@ -259,9 +260,16 @@ section.is-visible {
   background-position:center;
   background-repeat:no-repeat;
 }
-.plaque::before, .plaque::after,
-.plaque .stud-tl, .plaque .stud-tr, .plaque .stud-bl, .plaque .stud-br{
-  content:""; position:absolute; width:6px; height:6px; border-radius:50%; background:var(--brass);
+.plaque::before,
+.plaque::after{
+  display:none;
+}
+
+.plaque .stud-tl,
+.plaque .stud-tr,
+.plaque .stud-bl,
+.plaque .stud-br{
+  display:none;
 }
 .plaque .stud-tl{ top:8px; left:8px; } .plaque .stud-tr{ top:8px; right:8px; }
 .plaque .stud-bl{ bottom:8px; left:8px; } .plaque .stud-br{ bottom:8px; right:8px; }
